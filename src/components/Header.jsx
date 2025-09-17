@@ -1,59 +1,42 @@
 import Buton from "./Buton.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import AccordionDropdown from "./AcordionDropdown.jsx";
+import IconContainer from "./IconContainer.jsx";
+import { IoMdArrowBack } from "react-icons/io";
 
 const Header = () => {
     const navigate = useNavigate();
     const { isAuthenticated, logout } = useAuth();
+    const location = useLocation();
 
-    const handleLoginClick = () => {
-        navigate("/login");
-    };
-
-    const handleRegisterClick = () => {
-        navigate("/register");
-    };
+    const showBackButton = isAuthenticated && location.pathname !== '/';
 
     const handleLogoutClick = () => {
         logout();
         navigate("/login");
     };
 
-    const dropdownOptions = [
-        { value: "myProjects", label: "Mis proyectos" },
-        { value: "createProyect", label: "Crear proyecto" },
-    ];
-
-    const handleDropdownSelect = (option) => {
-        console.log("Opción seleccionada:", option);
-
-        if (option.value === "createProyect") {
-            navigate("/create-project");
-        }
-        if (option.value === "myProjects") {
-            navigate("/my-projects");
-        }
-    };
-    
-    // El 'return' del componente Header debe estar aquí, fuera de cualquier otra función
     return (
-        <header className="w-full p-4 bg-orange-500 text-white flex justify-between items-center">
-            <h1 className="text-2xl font-bold">Todo gap</h1>
-            <div className="flex space-x-2">
-                {isAuthenticated ? (
-                    <>
-                        <Buton text="Logout" onClick={handleLogoutClick} />
-                        <AccordionDropdown
-                            options={dropdownOptions}
-                            onSelect={handleDropdownSelect}
+        <header className="w-full p-4 bg-blue-800 text-white flex justify-between items-center">
+            <div className="flex-none w-10">
+                {showBackButton && (
+                    <button onClick={() => navigate(-1)} aria-label="Volver">
+                        <IconContainer 
+                            icon={<IoMdArrowBack />} 
+                            className="text-white text-xl" 
                         />
-                    </>
-                ) : (
-                    <>
-                        <Buton text="Login" onClick={handleLoginClick} />
-                        <Buton text="Register" onClick={handleRegisterClick} />
-                    </>
+                    </button>
+                )}
+            </div>
+            <div className="flex-grow text-center">
+                <Link to="/" className="text-2xl font-bold">
+                    Todo gap
+                </Link>
+            </div>
+            
+            <div className="flex-none flex justify-end items-center">
+                {isAuthenticated && (
+                    <Buton text="Cerrar Sesión" onClick={handleLogoutClick} />
                 )}
             </div>
         </header>

@@ -27,10 +27,10 @@ const Login = () => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', { email, password });
-            const { token } = response.data;
+            const { token, userId } = response.data;
 
-            if (token) {
-                login(token);
+            if (token && userId) {
+                login(token, userId);
                 setIsSuccess(true);
                 setErrorMessage("¡Inicio de sesión exitoso!");
                 setIsModalOpen(true);

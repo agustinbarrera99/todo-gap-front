@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 body {
-  background-image: url("./assets/white-crumpled-paper-sheet-background-design_213524-61.jpg");
+  background-color: rgba(234, 233, 233, 1);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

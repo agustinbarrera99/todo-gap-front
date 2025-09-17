@@ -1,24 +1,60 @@
-import React, { useState } from 'react';
-import Form from '../components/Form.jsx';
+import React, { useState } from "react";
+import Form from "../components/Form.jsx";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal.jsx";
 
 const CreateProject = () => {
-    // Estados para los campos del formulario
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const { authToken } = useAuth();
+    const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setModalMessage("");
+    };
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Lógica para enviar los datos del proyecto al backend
-        console.log("Datos del proyecto a enviar:");
-        console.log("Título:", title);
-        console.log("Descripción:", description);
-        
-        // Aquí podrías agregar la llamada a una API, por ejemplo:
-        // axios.post('/api/projects', { title, description });
-        
-        // Opcional: limpiar los campos después de enviar
-        setTitle("");
-        setDescription("");
+        if (!authToken) {
+            setModalMessage("No hay un token de autenticación. Inicia sesión para crear un proyecto.");
+            setIsModalOpen(true);
+            return;
+        }
+        const projectData = {
+            title,
+            description
+        };
+
+        try {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            };
+
+            const response = await axios.post(
+                'http://localhost:8080/api/projects',
+                projectData,
+                config
+            );
+
+            if (response.data.statusCode === 201) {
+                navigate("/my-projects");
+            } else {
+                setModalMessage("Proyecto creado, pero no se realizó la redirección.");
+                setIsModalOpen(true);
+            }
+        } catch (error) {
+            const errorMessage = error.response ? error.response.data.message : "Ocurrió un error inesperado.";
+            setModalMessage(errorMessage);
+            setIsModalOpen(true);
+        }
     };
 
     return (
@@ -49,8 +85,18 @@ const CreateProject = () => {
                     </button>
                 </Form>
             </div>
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
+                <h3 className="text-xl font-semibold mb-4">Error</h3>
+                <p className="text-gray-700 mb-4">{modalMessage}</p>
+                <button
+                    onClick={closeModal}
+                    className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                >
+                    Cerrar
+                </button>
+            </Modal>
         </div>
     );
-}
+};
 
 export default CreateProject;

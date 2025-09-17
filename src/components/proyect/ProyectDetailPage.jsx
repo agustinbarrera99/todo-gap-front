@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../../context/AuthContext.jsx';
+import { Loader } from '../loader.jsx';
 
 const ProjectDetailPage = () => {
-    // Obtiene el ID del proyecto de la URL
     const { projectId } = useParams();
-    
     const [project, setProject] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { authToken } = useAuth();
 
     useEffect(() => {
         const fetchProject = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/projects/${projectId}`);
-                setProject(response.data);
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                };
+                const response = await axios.get(`http://localhost:8080/api/projects/${projectId}`, config);
+                setProject(response.data.response); // Ajusta según la estructura de tu respuesta
                 setIsLoading(false);
             } catch (err) {
                 setError("No se pudo cargar la información del proyecto.");
@@ -22,11 +28,20 @@ const ProjectDetailPage = () => {
             }
         };
 
-        fetchProject();
-    }, [projectId]); // El efecto se vuelve a ejecutar si el ID del proyecto cambia
+        if (authToken) {
+            fetchProject();
+        } else {
+            setIsLoading(false);
+            setError("No estás autenticado para ver este proyecto.");
+        }
+    }, [projectId, authToken]);
 
     if (isLoading) {
-        return <div className="text-center mt-8">Cargando proyecto...</div>;
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <Loader />
+            </div>
+        );
     }
 
     if (error) {
@@ -41,17 +56,7 @@ const ProjectDetailPage = () => {
         <div className="container mx-auto p-8">
             <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
             <p className="text-gray-600 mb-6">{project.description}</p>
-
-            {/* Aquí van los componentes para las tareas, colaboración, etc. */}
-            <div className="mt-8">
-                <h2 className="text-2xl font-semibold mb-4">Tareas del proyecto</h2>
-                {/* Componente para mostrar la lista de tareas */}
-            </div>
-
-            <div className="mt-8">
-                <h2 className="text-2xl font-semibold mb-4">Colaboradores</h2>
-                {/* Componente para mostrar y gestionar colaboradores */}
-            </div>
+            {/* El resto del componente... */}
         </div>
     );
 };

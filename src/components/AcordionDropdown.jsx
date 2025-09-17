@@ -32,7 +32,7 @@ const AccordionDropdown = ({ options, onSelect, placeholder = "Selecciona una op
             <button
                 type="button"
                 onClick={toggleDropdown}
-                className="inline-flex items-center p-2 text-sm font-medium text-center text-white bg-orange-700 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300"
+                className="inline-flex items-center p-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
             >
                 <span className="sr-only">Menu</span>
                 <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
@@ -50,7 +50,7 @@ const AccordionDropdown = ({ options, onSelect, placeholder = "Selecciona una op
                             <li key={option.value}>
                                 <button
                                     onClick={() => handleSelect(option)}
-                                    className="block w-full text-left px-4 py-2 hover:bg-orange-100"
+                                    className="block w-full text-left px-4 py-2 hover:bg-blue-100"
                                 >
                                     {option.label}
                                 </button>

@@ -7,6 +7,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import CreateProject from "./pages/createProyect.jsx";
 import ProyectList from "./components/proyect/ProyectList.jsx";
+import ProjectDetailPage from "./components/proyect/ProyectDetailPage.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/create-project" element={<CreateProject />} />
           <Route path="/my-projects" element={<ProyectList />} />
+          <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
         </Routes>
       </Router>
     </AuthProvider>
