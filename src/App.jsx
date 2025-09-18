@@ -1,5 +1,5 @@
 import "./App.css";
-import Header from "./components/Header.jsx";
+import Header from "./components/ui/Header.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";

@@ -1,8 +1,10 @@
+// src/components/proyect/ProjectDetailPage.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { Loader } from '../loader.jsx';
+import { Loader } from '../ui/loader.jsx';
+import TaskBoard from '../TaskBoard.jsx';
 
 const ProjectDetailPage = () => {
     const { projectId } = useParams();
@@ -13,26 +15,28 @@ const ProjectDetailPage = () => {
 
     useEffect(() => {
         const fetchProject = async () => {
+            if (!authToken) {
+                setIsLoading(false);
+                setError("No estás autenticado para ver este proyecto.");
+                return;
+            }
+
             try {
                 const config = {
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`
-                    }
+                    headers: { 'Authorization': `Bearer ${authToken}` }
                 };
                 const response = await axios.get(`http://localhost:8080/api/projects/${projectId}`, config);
-                setProject(response.data.response); // Ajusta según la estructura de tu respuesta
+                setProject(response.data.response);
                 setIsLoading(false);
             } catch (err) {
+                console.error("Error fetching project details:", err);
                 setError("No se pudo cargar la información del proyecto.");
                 setIsLoading(false);
             }
         };
 
-        if (authToken) {
+        if (projectId) {
             fetchProject();
-        } else {
-            setIsLoading(false);
-            setError("No estás autenticado para ver este proyecto.");
         }
     }, [projectId, authToken]);
 
@@ -45,18 +49,25 @@ const ProjectDetailPage = () => {
     }
 
     if (error) {
-        return <div className="text-center mt-8 text-red-500">{error}</div>;
+        return <div className="text-center mt-8 text-2xl text-red-600 font-semibold">{error}</div>;
     }
 
     if (!project) {
-        return <div className="text-center mt-8">Proyecto no encontrado.</div>;
+        return <div className="text-center mt-8 text-xl text-gray-700">Proyecto no encontrado o ID inválido.</div>;
     }
 
     return (
-        <div className="container mx-auto p-8">
-            <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
-            <p className="text-gray-600 mb-6">{project.description}</p>
-            {/* El resto del componente... */}
+        <div className="container mx-auto p-4 md:p-8">
+            {/* Sección de Detalles del Proyecto */}
+            <div className="bg-white shadow-lg rounded-lg p-6 mb-8 border-l-4 border-blue-600">
+                <h1 className="text-4xl font-extrabold mb-2 text-gray-800">{project.title}</h1>
+                <p className="text-gray-600 text-lg">{project.description}</p>
+            </div>
+            
+            {/* Sección de Tareas: Usamos el TaskBoard para renderizar las columnas */}
+            <h2 className="text-3xl font-bold mb-4 text-gray-800 border-b pb-2">Tablero Kanban</h2>
+            
+            <TaskBoard projectId={projectId} /> 
         </div>
     );
 };

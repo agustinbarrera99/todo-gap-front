@@ -1,10 +1,10 @@
-import Form from "../components/Form";
+import Form from "../components/ui/Form.jsx";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import Modal from "../components/Modal.jsx";
-import Button from "../components/Buton.jsx";
+import Modal from "../components/ui/Modal.jsx";
+import Button from "../components/ui/Buton.jsx";
 
 const Login = () => {
     const { login } = useAuth();
@@ -30,13 +30,12 @@ const Login = () => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', { email, password });
+            console.log(response.data)
             const { token, userId } = response.data;
 
             if (token && userId) {
                 login(token, userId);
-                setIsSuccess(true);
-                setErrorMessage("¡Inicio de sesión exitoso! Serás redirigido...");
-                setIsModalOpen(true);
+                navigate("/")
             } else {
                 setErrorMessage("Usuario o contraseña incorrectos.");
                 setIsSuccess(false);
@@ -110,7 +109,7 @@ const Login = () => {
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 <div className="text-center">
                     <h3 className={`text-xl font-bold mb-2 ${isSuccess ? 'text-green-600' : 'text-red-600'}`}>
-                        {isSuccess ? '¡Login Exitoso! ✅' : 'Error en el Login ❌'}
+                        {!isSuccess  && 'Error en el Login ❌'}
                     </h3>
                     <p>{errorMessage}</p>
                     <button

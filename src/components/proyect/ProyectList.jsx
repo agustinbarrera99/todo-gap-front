@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext.jsx";
 import ProyectCard from "./ProyectCard.jsx";
-import { Loader } from "../loader.jsx";
+import { Loader } from "../ui/loader.jsx";
 
 const ProyectList = () => {
     const [projects, setProjects] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const { authToken } = useAuth(); 
-
-    // Función para obtener los proyectos
     const fetchProjects = async () => {
         if (!authToken) {
             setIsLoading(false);
@@ -66,7 +64,7 @@ const ProyectList = () => {
                         <ProyectCard 
                             key={project._id} 
                             project={project} 
-                            onProjectDeleted={handleProjectDeleted} // Pasamos el callback
+                            onProjectDeleted={handleProjectDeleted}
                         />
                     ))}
                 </div>

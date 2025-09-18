@@ -1,7 +1,7 @@
-import Buton from "./Buton.jsx";
+import Button from "./Buton.jsx";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import IconContainer from "./IconContainer.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
+import IconContainer from "../IconContainer.jsx";
 import { IoMdArrowBack } from "react-icons/io";
 
 const Header = () => {
@@ -36,7 +36,7 @@ const Header = () => {
             
             <div className="flex-none flex justify-end items-center">
                 {isAuthenticated && (
-                    <Buton text="Cerrar Sesión" onClick={handleLogoutClick} />
+                    <Button text="Cerrar Sesión" onClick={handleLogoutClick} />
                 )}
             </div>
         </header>

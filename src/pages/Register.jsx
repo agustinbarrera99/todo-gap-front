@@ -1,10 +1,10 @@
-import Form from "../components/Form";
+import Form from "../components/ui/Form.jsx";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom"; // Importamos 'Link' para el enlace
 import axios from "axios";
 import { useState } from "react";
-import Modal from "../components/Modal.jsx";
-import Button from "../components/Buton.jsx";
+import Modal from "../components/ui/Modal.jsx";
+import Button from "../components/ui/Buton.jsx";
 
 const Register = () => {
     const navigate = useNavigate();

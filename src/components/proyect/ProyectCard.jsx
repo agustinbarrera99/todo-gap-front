@@ -4,20 +4,19 @@ import axios from "axios";
 import IconContainer from "../IconContainer.jsx"; 
 import { FaTrashAlt } from "react-icons/fa"; 
 import React, { useState } from 'react'; // Necesitas useState
-import Modal from "../Modal.jsx"; // Asegura la ruta a tu modal
-import Buton from "../Buton.jsx"; // Asegura la ruta a tu botón
+import Modal from "../ui/Modal.jsx"; // Asegura la ruta a tu modal
+import Button from "../ui/Buton.jsx";
 
 const ProyectCard = ({ project, onProjectDeleted }) => {
     const navigate = useNavigate();
     const { userId, authToken } = useAuth(); 
-    
-    // Estados para manejar el modal de confirmación y el modal de resultado
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [isResultModalOpen, setIsResultModalOpen] = useState(false);
     const [resultMessage, setResultMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
 
     const isOwner = userId;
+    console.log(userId)
 
     const handleCardClick = () => {
         navigate(`/projects/${project._id}`);
@@ -92,13 +91,13 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
                 onClose={() => setIsConfirmModalOpen(false)}
                 title="Confirmar eliminación"
                 footer={[
-                    <Buton 
+                    <Button 
                         key="cancel" 
                         text="Cancelar" 
                         onClick={() => setIsConfirmModalOpen(false)} 
                         className="bg-gray-400 hover:bg-gray-500"
                     />,
-                    <Buton 
+                    <Button 
                         key="confirm" 
                         text="Eliminar" 
                         onClick={executeDelete} 
@@ -116,7 +115,7 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
                 onClose={() => setIsResultModalOpen(false)}
                 title={isSuccess ? "Operación Exitosa" : "Error"}
                 footer={[
-                    <Buton 
+                    <Button 
                         key="close" 
                         text="Aceptar" 
                         onClick={() => setIsResultModalOpen(false)} 

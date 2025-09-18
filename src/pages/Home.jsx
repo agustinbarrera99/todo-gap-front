@@ -1,5 +1,5 @@
 import React from "react";
-import Buton from "../components/Buton.jsx";
+import Buton from "../components/ui/Buton.jsx";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { FaTasks, FaEdit, FaCalendarAlt, FaPalette } from 'react-icons/fa';
@@ -24,7 +24,6 @@ const Home = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 py-12 px-4">
-            {/* Sección de bienvenida con un CTA */}
             <section className="text-center mb-12">
                 <h1 className="text-5xl font-extrabold text-blue-800 mb-4">
                     Bienvenido a Todo Gap
@@ -32,7 +31,6 @@ const Home = () => {
                 <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
                     Organiza tu vida y aumenta tu productividad. Gestiona tus proyectos y tareas de manera eficiente y sencilla, manteniéndote siempre al tanto.
                 </p>
-                {/* Lógica condicional para mostrar los botones */}
                 {isAuthenticated ? (
                     <div className="space-x-4">
                         <Link to="/my-projects">
