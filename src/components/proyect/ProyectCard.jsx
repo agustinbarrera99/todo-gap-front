@@ -17,6 +17,7 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
 
     const isOwner = userId;
     console.log(userId)
+    console.log(project.members)
 
     const handleCardClick = () => {
         navigate(`/projects/${project._id}`);
@@ -37,15 +38,12 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
             
             const url = `http://localhost:8080/api/projects/${project._id}`;
             await axios.delete(url, config);
-
-            // Éxito
             setIsSuccess(true);
             setResultMessage("✅ Proyecto eliminado exitosamente.");
             if (onProjectDeleted) {
                 onProjectDeleted(project._id);
             }
         } catch (error) {
-            // Error
             setIsSuccess(false);
             const userMessage = "❌ Error: No se pudo eliminar el proyecto. Revisa tus permisos.";
             console.error("Error al eliminar el proyecto:", error.response ? error.response.data : error.message);
