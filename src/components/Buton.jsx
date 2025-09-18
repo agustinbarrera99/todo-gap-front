@@ -1,9 +1,13 @@
-const Buton = ({text, onClick}) => {
+const Button = ({text, onClick, type = "button"}) => {
     return (
-        <button onClick={onClick} className="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800 transition duration-500 transition-discrete">
+        <button 
+            type={type} 
+            onClick={onClick} 
+            className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        >
             {text}
         </button>
     )
 }
 
-export default Buton
+export default Button

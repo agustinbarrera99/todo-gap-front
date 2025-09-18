@@ -1,10 +1,9 @@
 const Form = ({children, onSubmit}) => {
     return (
-        <form onSubmit={onSubmit} className="flex flex-col gap-4">
+        <form onSubmit={onSubmit} className="space-y-4 md:space-y-6">
             {children}
         </form>
     )
 }
 
 export default Form
-

@@ -17,22 +17,19 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
     const [resultMessage, setResultMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
 
-    // Lógica corregida para isOwner
-    const isOwner = userId && project.owner && project.owner._id.toString() === userId;
+    const isOwner = userId;
 
     const handleCardClick = () => {
         navigate(`/projects/${project._id}`);
     };
 
-    // Función que inicia el proceso mostrando el modal de confirmación
     const handleDeleteClick = (event) => {
         event.stopPropagation();
         setIsConfirmModalOpen(true);
     };
 
-    // Función principal para ejecutar la eliminación
     const executeDelete = async () => {
-        setIsConfirmModalOpen(false); // Cierra el modal de confirmación
+        setIsConfirmModalOpen(false); 
 
         try {
             const config = {
@@ -45,8 +42,6 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
             // Éxito
             setIsSuccess(true);
             setResultMessage("✅ Proyecto eliminado exitosamente.");
-            
-            // Notificar a ProyectList para que actualice la vista
             if (onProjectDeleted) {
                 onProjectDeleted(project._id);
             }
@@ -57,7 +52,7 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
             console.error("Error al eliminar el proyecto:", error.response ? error.response.data : error.message);
             setResultMessage(userMessage);
         } finally {
-            setIsResultModalOpen(true); // Muestra el modal de resultado
+            setIsResultModalOpen(true);
         }
     };
 
@@ -70,11 +65,10 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
                 <p className="text-gray-600 mb-4">{project.description}</p>
                 
-                {/* Ícono de eliminación condicional para el dueño */}
                 {isOwner && (
                     <div className="absolute top-4 right-4 z-10">
                         <button 
-                            onClick={handleDeleteClick} // Llama a la nueva función que abre el modal
+                            onClick={handleDeleteClick} 
                             className="text-red-500 hover:text-red-700 transition-colors duration-200 p-2 rounded-full hover:bg-gray-100"
                             aria-label="Eliminar proyecto"
                         >
@@ -93,7 +87,6 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
                 </div>
             </div>
 
-            {/* Modal de CONFIRMACIÓN */}
             <Modal
                 isOpen={isConfirmModalOpen}
                 onClose={() => setIsConfirmModalOpen(false)}
@@ -117,8 +110,7 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
                     Estás a punto de eliminar permanentemente el proyecto **"{project.title}"**. ¿Estás seguro de continuar?
                 </p>
             </Modal>
-            
-            {/* Modal de RESULTADO (Éxito o Error) */}
+        
             <Modal
                 isOpen={isResultModalOpen}
                 onClose={() => setIsResultModalOpen(false)}

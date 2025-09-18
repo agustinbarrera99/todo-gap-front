@@ -4,33 +4,44 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
 import Modal from "../components/Modal.jsx";
+import Button from "../components/Buton.jsx";
 
 const CreateProject = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+    const [isSuccess, setIsSuccess] = useState(false);
+
     const { authToken } = useAuth();
     const navigate = useNavigate();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalMessage, setModalMessage] = useState("");
+    const userErrorMessage = "Ocurrió un error al intentar crear el proyecto. Por favor, inténtalo de nuevo.";
 
-    const closeModal = () => {
+    const handleCloseModal = () => {
         setIsModalOpen(false);
         setModalMessage("");
+    
+        if (isSuccess) {
+            navigate("/my-projects");
+        }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         if (!authToken) {
-            setModalMessage("No hay un token de autenticación. Inicia sesión para crear un proyecto.");
+            setModalMessage("Necesitas iniciar sesión para crear un proyecto.");
+            setIsSuccess(false);
             setIsModalOpen(true);
             return;
         }
+
         const projectData = {
             title,
             description
         };
-
         try {
             const config = {
                 headers: {
@@ -43,57 +54,95 @@ const CreateProject = () => {
                 projectData,
                 config
             );
-
+            console.log(response.data.statusCode)
             if (response.data.statusCode === 201) {
-                navigate("/my-projects");
+                setIsSuccess(true);
+                setModalMessage("¡Proyecto creado con éxito! Serás redirigido a tus proyectos.");
+                setTitle("");
+                setDescription(""); 
             } else {
-                setModalMessage("Proyecto creado, pero no se realizó la redirección.");
-                setIsModalOpen(true);
+                setIsSuccess(false);
+                setModalMessage("Proyecto creado, pero el servidor devolvió una respuesta inesperada.");
             }
         } catch (error) {
-            const errorMessage = error.response ? error.response.data.message : "Ocurrió un error inesperado.";
-            setModalMessage(errorMessage);
+            console.error("Error al crear proyecto:", error);
+            
+            let message = userErrorMessage;
+            if (error.response) {
+                message = error.response.data.message || error.response.data.error || userErrorMessage;
+            } else if (error.request) {
+                message = "No se pudo conectar con el servidor. Verifica tu conexión.";
+            }
+
+            setModalMessage(message);
+            setIsSuccess(false);
+        } finally {
             setIsModalOpen(true);
         }
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <h2 className="text-2xl font-bold mb-4">Crear Proyecto</h2>
-            <div className="bg-white p-6 rounded shadow-md w-full max-w-lg">
-                <Form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Título del proyecto"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="p-2 border border-gray-300 rounded"
-                        required
-                    />
-                    <textarea
-                        placeholder="Descripción del proyecto"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="p-2 border border-gray-300 rounded h-32 resize-none"
-                        required
-                    />
-                    <button
-                        type="submit"
-                        className="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800"
-                    >
-                        Crear
-                    </button>
-                </Form>
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 min-h-screen bg-gray-50">
+            <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
+                <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    {/* Título */}
+                    <h2 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                        Crear Nuevo Proyecto
+                    </h2>
+                    
+                    <Form onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900">
+                                Título del Proyecto
+                            </label>
+                            <input
+                                type="text"
+                                id="title"
+                                placeholder="Título del proyecto"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+
+                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:ring-blue-600 focus:border-blue-600"
+                                required
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
+                                Descripción
+                            </label>
+                            <textarea
+                                id="description"
+                                placeholder="Descripción detallada del proyecto"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:ring-blue-600 focus:border-blue-600 h-32 resize-none"
+                                required
+                            />
+                        </div>
+
+                        <Button type="submit" text="Crear Proyecto" />
+                        
+                        <p className="text-sm font-light text-gray-500">
+                            Asegúrate de haber iniciado sesión antes de crear.
+                        </p>
+                    </Form>
+                </div>
             </div>
-            <Modal isOpen={isModalOpen} onClose={closeModal}>
-                <h3 className="text-xl font-semibold mb-4">Error</h3>
-                <p className="text-gray-700 mb-4">{modalMessage}</p>
-                <button
-                    onClick={closeModal}
-                    className="w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-                >
-                    Cerrar
-                </button>
+            
+            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                <div className="text-center">
+                    <h3 className={`text-xl font-bold mb-2 ${isSuccess ? 'text-green-600' : 'text-red-600'}`}>
+                        {isSuccess ? '¡Éxito! 🎉' : 'Error ⚠️'}
+                    </h3>
+                    <p className="text-gray-700">{modalMessage}</p>
+                    <button
+                        onClick={handleCloseModal}
+                        className={`mt-4 px-4 py-2 rounded text-white font-medium ${isSuccess ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}`}
+                    >
+                        {isSuccess ? 'Continuar' : 'Cerrar'}
+                    </button>
+                </div>
             </Modal>
         </div>
     );
