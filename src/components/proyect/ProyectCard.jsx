@@ -3,8 +3,8 @@ import { useAuth } from "../../context/AuthContext.jsx";
 import axios from "axios";
 import IconContainer from "../IconContainer.jsx"; 
 import { FaTrashAlt } from "react-icons/fa"; 
-import React, { useState } from 'react'; // Necesitas useState
-import Modal from "../ui/Modal.jsx"; // Asegura la ruta a tu modal
+import React, { useState } from 'react'; 
+import Modal from "../ui/Modal.jsx"; 
 import Button from "../ui/Buton.jsx";
 
 const ProyectCard = ({ project, onProjectDeleted }) => {

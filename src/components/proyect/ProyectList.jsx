@@ -32,7 +32,6 @@ const ProyectList = () => {
         }
     };
     
-    // Función para actualizar el estado después de una eliminación
     const handleProjectDeleted = (deletedProjectId) => {
         setProjects(prevProjects => 
             prevProjects.filter(project => project._id !== deletedProjectId)

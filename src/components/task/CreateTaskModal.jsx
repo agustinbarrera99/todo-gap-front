@@ -14,9 +14,8 @@ const CreateTaskModal = ({ projectId, isOpen, onClose, onSuccess }) => {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
-        status: 'Pendiente', // Default según tu esquema
-        priority: 'medium',  // Default según tu esquema
-        // assignedTo se puede añadir después si tienes un selector de usuarios
+        status: 'Pendiente', 
+        priority: 'medium', 
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formError, setFormError] = useState('');
@@ -51,17 +50,13 @@ const CreateTaskModal = ({ projectId, isOpen, onClose, onSuccess }) => {
                 }
             };
             
-            // Endpoint: tasksRouter.post("/:pid", authMiddleware, create)
             const response = await axios.post(
                 `${API_BASE_URL}/tasks/${projectId}`,
-                // Enviamos los datos, el 'project' se añade automáticamente en el backend vía el :pid
                 formData,
                 config
             );
 
-            // Éxito: Llamamos a la función onSuccess (que refrescará el TaskBoard)
             onSuccess(response.data); 
-            // Limpiamos y cerramos
             setFormData({ title: '', description: '', status: 'Pendiente', priority: 'medium' });
             onClose();
 
@@ -83,7 +78,6 @@ const CreateTaskModal = ({ projectId, isOpen, onClose, onSuccess }) => {
                 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     
-                    {/* Título */}
                     <div>
                         <label htmlFor="title" className="block text-sm font-medium text-gray-700">Título</label>
                         <input
@@ -98,7 +92,6 @@ const CreateTaskModal = ({ projectId, isOpen, onClose, onSuccess }) => {
                         />
                     </div>
 
-                    {/* Descripción */}
                     <div>
                         <label htmlFor="description" className="block text-sm font-medium text-gray-700">Descripción</label>
                         <textarea
@@ -114,7 +107,6 @@ const CreateTaskModal = ({ projectId, isOpen, onClose, onSuccess }) => {
                     </div>
 
                     <div className="flex space-x-4">
-                        {/* Status (Estado Inicial) */}
                         <div className="flex-1">
                             <label htmlFor="status" className="block text-sm font-medium text-gray-700">Estado</label>
                             <select
@@ -130,7 +122,6 @@ const CreateTaskModal = ({ projectId, isOpen, onClose, onSuccess }) => {
                             </select>
                         </div>
                         
-                        {/* Prioridad */}
                         <div className="flex-1">
                             <label htmlFor="priority" className="block text-sm font-medium text-gray-700">Prioridad</label>
                             <select
@@ -146,15 +137,12 @@ const CreateTaskModal = ({ projectId, isOpen, onClose, onSuccess }) => {
                             </select>
                         </div>
                         
-                        {/* Nota: Aquí iría el campo assignedTo, si tuvieras un selector de usuarios */}
                     </div>
 
-                    {/* Mensaje de Error */}
                     {formError && (
                         <p className="text-sm text-red-600 font-medium">{formError}</p>
                     )}
 
-                    {/* Botones */}
                     <div className="flex justify-end space-x-3 pt-4">
                         <button
                             type="button"

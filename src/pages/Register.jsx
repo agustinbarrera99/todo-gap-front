@@ -1,6 +1,6 @@
 import Form from "../components/ui/Form.jsx";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate, Link } from "react-router-dom"; // Importamos 'Link' para el enlace
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import Modal from "../components/ui/Modal.jsx";
@@ -12,7 +12,7 @@ const Register = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState(""); // Nuevo estado
+    const [confirmPassword, setConfirmPassword] = useState(""); 
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState("");
@@ -106,7 +106,6 @@ const Register = () => {
                             />
                         </div>
 
-                        {/* Campo de Email */}
                         <div>
                             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
                                 Tu Email
@@ -122,7 +121,6 @@ const Register = () => {
                             />
                         </div>
 
-                        {/* Campo de Contraseña */}
                         <div>
                             <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
                                 Contraseña
@@ -138,7 +136,6 @@ const Register = () => {
                             />
                         </div>
 
-                        {/* **Nuevo Campo de Confirmar Contraseña** */}
                         <div>
                             <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900">
                                 Confirmar Contraseña
@@ -156,7 +153,6 @@ const Register = () => {
 
                         <Button type="submit" text="Crear cuenta" />
                         
-                        {/* **Nuevo Enlace a Login** */}
                         <p className="text-sm font-light text-gray-500">
                             ¿Ya tienes una cuenta? 
                             <Link to="/login" className="font-medium text-blue-600 hover:underline ml-1">
@@ -167,7 +163,6 @@ const Register = () => {
                 </div>
             </div>
             
-            {/* Modal de Alerta/Éxito */}
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 <div className="text-center">
                     <h3 className={`text-xl font-bold mb-2 ${isSuccess ? 'text-green-600' : 'text-red-600'}`}>

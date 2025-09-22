@@ -8,7 +8,6 @@ const Header = () => {
     const navigate = useNavigate();
     const { isAuthenticated, logout } = useAuth();
     const location = useLocation();
-
     const showBackButton = isAuthenticated && location.pathname !== '/';
 
     const handleLogoutClick = () => {
@@ -17,26 +16,32 @@ const Header = () => {
     };
 
     return (
-        <header className="w-full p-4 bg-blue-800 text-white flex justify-between items-center">
-            <div className="flex-none w-10">
+        <header className="w-full p-4 bg-emerald-500 flex justify-between items-center text-black">
+            <div className="w-1/4 flex justify-start items-center">
                 {showBackButton && (
                     <button onClick={() => navigate(-1)} aria-label="Volver">
                         <IconContainer 
                             icon={<IoMdArrowBack />} 
-                            className="text-white text-xl" 
+                            className="text-black text-2xl hover:text-gray-300 transition duration-300" 
                         />
                     </button>
                 )}
             </div>
+            
             <div className="flex-grow text-center">
-                <Link to="/" className="text-2xl font-bold">
+                <Link to="/" className="text-2xl font-bold text-black tracking-wider">
                     Todo gap
                 </Link>
             </div>
             
-            <div className="flex-none flex justify-end items-center">
+            <div className="w-1/4 flex justify-end items-center">
                 {isAuthenticated && (
-                    <Button text="Cerrar Sesión" onClick={handleLogoutClick} />
+                    <button 
+                        onClick={handleLogoutClick}
+                        className="text-sm font-medium text-black hover:text-emerald-950 transition duration-300"
+                    >
+                        Cerrar Sesión
+                    </button>
                 )}
             </div>
         </header>

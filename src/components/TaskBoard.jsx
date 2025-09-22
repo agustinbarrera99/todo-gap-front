@@ -108,7 +108,6 @@ const TaskBoard = ({ projectId }) => {
         const uppercaseStatus = status.toUpperCase();
 
         acc[status] = tasks.filter(
-            // El estado en 'task.status' viene del backend (ej. "Pendiente")
             (task) => task.status && task.status.toUpperCase() === uppercaseStatus 
         );
         return acc;
@@ -140,7 +139,6 @@ const TaskBoard = ({ projectId }) => {
                         title={status}
                         tasks={groupedTasks[status] || []}
                         onTaskActionCompleted={fetchTasks}
-                        // 💡 Ahora updateTaskStatus está en el alcance correcto
                         onDropTask={updateTaskStatus} 
                     />
                 ))}

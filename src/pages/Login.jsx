@@ -58,7 +58,6 @@ const Login = () => {
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 min-h-screen bg-gray-50">
             <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    {/* Título de Login */}
                     <h2 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                         Iniciar Sesión
                     </h2>
@@ -79,7 +78,6 @@ const Login = () => {
                             />
                         </div>
 
-                        {/* Campo de Contraseña */}
                         <div>
                             <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
                                 Contraseña

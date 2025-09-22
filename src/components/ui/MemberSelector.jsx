@@ -13,7 +13,6 @@ const MemberSelector = ({ onMembersChange }) => {
     const [selectedMembers, setSelectedMembers] = useState([]); 
     const [isLoading, setIsLoading] = useState(false);
 
-    // 💡 Implementar Debounce: el valor se actualiza 500ms después de que el usuario deja de escribir
     const debouncedSearchTerm = useDebounce(searchTerm, 400); 
 
     useEffect(() => {
@@ -29,13 +28,11 @@ const MemberSelector = ({ onMembersChange }) => {
             try {
                 const config = { 
                     headers: { 'Authorization': `Bearer ${authToken}` },
-                    params: { username: query } // 💡 Usamos 'username' según tu backend
+                    params: { username: query } 
                 };
                 
-                // Usamos el endpoint raíz con el filtro por query: /api/users?username=query
                 const response = await axios.get(API_USERS_URL, config);
                 
-                // Muestra solo los usuarios que NO han sido seleccionados
                 const newSuggestions = response.data.data.filter(user => 
                     !selectedMembers.some(member => member._id === user._id)
                 );
@@ -116,7 +113,6 @@ const MemberSelector = ({ onMembersChange }) => {
                     ))}
                 </ul>
             )}
-            {/* Mensaje de no resultados */}
              {(debouncedSearchTerm.length >= 3 && !isLoading && suggestions.length === 0) && (
                 <p className="text-sm text-gray-500 mt-2">No se encontraron usuarios.</p>
              )}

@@ -21,21 +21,15 @@ const TaskColumn = ({ title, tasks, onTaskActionCompleted, onDropTask }) => {
         titleColor = "text-green-700";
     }
 
-    // Manejador: Permite soltar elementos sobre la columna
     const handleDragOver = (e) => {
-        e.preventDefault(); // Es esencial para permitir el drop
+        e.preventDefault(); 
     };
 
-    // Manejador: Se ejecuta cuando una tarea se suelta
     const handleDrop = (e) => {
         e.preventDefault();
-
-        // Obtiene el ID de la tarea que se guardó en TaskItem.jsx
         const taskId = e.dataTransfer.getData("taskId");
 
         if (taskId) {
-            // Llama a la función en TaskBoard para actualizar el estado
-            // Pasamos el título de la columna como el nuevo estado
             onDropTask(taskId, title);
         }
     };
@@ -43,8 +37,8 @@ const TaskColumn = ({ title, tasks, onTaskActionCompleted, onDropTask }) => {
     return (
         <div
             className={`flex-shrink-0 w-80 bg-white rounded-lg shadow-md p-4 border-t-4 ${borderColor}`}
-            onDragOver={handleDragOver} // Habilita la columna como drop zone
-            onDrop={handleDrop}         // Maneja la tarea soltada
+            onDragOver={handleDragOver} 
+            onDrop={handleDrop} 
         >
             <h4 className={`text-lg font-bold mb-4 ${titleColor} uppercase`}>
                 {title} ({tasks.length})
@@ -55,8 +49,8 @@ const TaskColumn = ({ title, tasks, onTaskActionCompleted, onDropTask }) => {
                         <TaskItem
                             key={task._id || task.id}
                             task={task}
-                            // onTaskDeleted y onTaskActionCompleted son la misma función (fetchTasks)
                             onTaskDeleted={onTaskActionCompleted} 
+                            onTaskUpdated={onTaskActionCompleted} 
                         />
                     ))
                 ) : (

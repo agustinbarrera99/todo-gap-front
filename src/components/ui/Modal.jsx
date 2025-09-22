@@ -8,13 +8,12 @@ const Modal = ({ isOpen, onClose, children, title, footer, className = "" }) => 
     return (
         <div 
             className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 transition-opacity duration-300 ease-in-out"
-            onClick={onClose} // Cierra si se hace clic fuera del modal
+            onClick={onClose}
         >
             <div 
                 className={`bg-white p-8 rounded-lg w-11/12 max-w-sm transform transition-all duration-300 ease-in-out scale-95 ${className}`}
-                onClick={handleModalClick} // Evita que el clic dentro cierre el modal
+                onClick={handleModalClick} 
             >
-                {/* Botón de cerrar (X) */}
                 <button
                     className="absolute top-4 right-4 p-1 text-gray-500 hover:text-gray-900 transition-colors duration-200"
                     onClick={onClose}
@@ -36,17 +35,14 @@ const Modal = ({ isOpen, onClose, children, title, footer, className = "" }) => 
                     </svg>
                 </button>
                 
-                {/* Título opcional */}
                 {title && (
                     <h3 className="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">{title}</h3>
                 )}
 
-                {/* Contenido principal */}
                 <div className="mb-6">
                     {children}
                 </div>
 
-                {/* Footer (puede contener botones de acción) */}
                 {footer && (
                     <div className="flex justify-end space-x-3 pt-4 border-t">
                         {footer}

@@ -58,13 +58,11 @@ const ProjectDetailPage = () => {
 
     return (
         <div className="container mx-auto p-4 md:p-8">
-            {/* Sección de Detalles del Proyecto */}
-            <div className="bg-white shadow-lg rounded-lg p-6 mb-8 border-l-4 border-blue-600">
+            <div className="bg-white shadow-lg rounded-lg p-6 mb-8 border-l-4 border-emerald-500">
                 <h1 className="text-4xl font-extrabold mb-2 text-gray-800">{project.title}</h1>
                 <p className="text-gray-600 text-lg">{project.description}</p>
             </div>
             
-            {/* Sección de Tareas: Usamos el TaskBoard para renderizar las columnas */}
             <h2 className="text-3xl font-bold mb-4 text-gray-800 border-b pb-2">Tablero Kanban</h2>
             
             <TaskBoard projectId={projectId} /> 

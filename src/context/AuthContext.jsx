@@ -27,25 +27,23 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (authToken) {
       localStorage.setItem(AUTH_TOKEN_KEY, authToken);
-      // 👈 Obtiene el userId del token CADA VEZ que el token cambia
       setUserId(getUserIdFromToken(authToken));
     } else {
       localStorage.removeItem(AUTH_TOKEN_KEY);
-      setUserId(null); // Limpia el userId
+      setUserId(null); 
     }
   }, [authToken]);
   const login = (token) => {
     setAuthToken(token);
   };
 
-  // Función para cerrar sesión
   const logout = () => {
-    // Establece el token en null y el useEffect lo eliminará de localStorage
+
     setAuthToken(null);
-    // navigate('/login'); // Opcional: Redirigir al login después del logout
+
   };
 
-  const isAuthenticated = !!authToken; // Doble negación para convertir a booleano
+  const isAuthenticated = !!authToken;
 
   const value = {
     authToken,
