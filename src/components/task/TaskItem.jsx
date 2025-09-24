@@ -113,21 +113,21 @@ const TaskItem = ({ task, onTaskDeleted, onTaskUpdated }) => {
             <div 
                 draggable="true"
                 onDragStart={handleDragStart}
-                className="bg-white p-4 rounded-lg shadow-md border-b-2 border-gray-300 hover:shadow-lg transition duration-150 ease-in-out relative cursor-pointer"
+                className="bg-gray-800 p-4 rounded-lg shadow-md border-b-2 border-emerald-500 hover:shadow-lg transition duration-150 ease-in-out relative cursor-pointer"
                 onClick={handleEditClick} 
             >
                 
                 <div className="absolute top-2 right-2 flex space-x-1 z-20">
                     <button 
                         onClick={handleEditClick} 
-                        className="text-blue-400 hover:text-blue-600 p-1 rounded-full bg-white hover:bg-gray-50 transition-colors"
+                        className="text-emerald-500 hover:text-emerald-600 p-1 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors"
                         aria-label="Editar tarea"
                     >
                         <FaEdit className="w-4 h-4" />
                     </button>
                     <button 
                         onClick={handleDeleteClick} 
-                        className="text-red-400 hover:text-red-600 p-1 rounded-full bg-white hover:bg-gray-50 transition-colors"
+                        className="text-red-400 hover:text-red-600 p-1 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors"
                         aria-label="Eliminar tarea"
                     >
                         <FaTrashAlt className="w-4 h-4" />
@@ -135,7 +135,7 @@ const TaskItem = ({ task, onTaskDeleted, onTaskUpdated }) => {
                 </div>
 
                 <div className="flex justify-between items-start mb-2 pr-16"> 
-                    <h5 className="font-bold text-lg text-gray-900 leading-tight">
+                    <h5 className="font-bold text-lg text-emerald-500 leading-tight">
                         {task.title} 
                     </h5>
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${priorityStyles.color} ml-3`}>
@@ -143,16 +143,16 @@ const TaskItem = ({ task, onTaskDeleted, onTaskUpdated }) => {
                     </span>
                 </div>
 
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                <p className="text-sm text-emerald-400 mb-3 line-clamp-2">
                     {task.description.substring(0, 100)}{task.description.length > 100 ? '...' : ''}
                 </p>
 
-                <div className="flex justify-between text-xs text-gray-400 pt-2 border-t border-gray-100">
+                <div className="flex justify-between text-xs text-gray-400 pt-2 border-t border-gray-800">
                     <p>
-                        <span className="font-medium text-gray-700">Asignado:</span> {assignedUserName}
+                        <span className="font-medium text-emerald-400">Asignado:</span> {assignedUserName}
                     </p>
                     <p>
-                        <span className="font-medium text-gray-700">Creada:</span> {formattedDate}
+                        <span className="font-medium text-emerald-400">Creada:</span> {formattedDate}
                     </p>
                 </div>
             </div>

@@ -55,16 +55,16 @@ const Login = () => {
 
     return (
 
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 min-h-screen bg-gray-50">
-            <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 min-h-screen bg-900">
+            <div className="w-full bg-gray-800 rounded-lg shadow border-emerald-500 border-1 md:mt-0 sm:max-w-md xl:p-0">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h2 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                    <h2 className="text-xl font-bold leading-tight tracking-tight text-emerald-500 md:text-2xl">
                         Iniciar Sesión
                     </h2>
                     
                     <Form onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
+                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-emerald-400">
                                 Tu Email
                             </label>
                             <input
@@ -79,7 +79,7 @@ const Login = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
+                            <label htmlFor="password" className="block mb-2 text-sm font-medium text-emerald-400">
                                 Contraseña
                             </label>
                             <input
@@ -92,7 +92,7 @@ const Login = () => {
                                 required
                             />
                         </div>
-                        <Button type="submit" text="Login" />
+                        <Button type="submit" text="Login" bgColor={"bg-emerald-500"} bgColorHover={"hover:bg-emerald-600"}/>
                         
                         <p className="text-sm font-light text-gray-500">
                             ¿No tienes una cuenta? 

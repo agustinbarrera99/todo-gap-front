@@ -56,17 +56,17 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
     return (
         <>
             <div 
-                className="bg-white rounded-lg shadow-md p-6 border border-gray-200 cursor-pointer hover:shadow-lg transition-shadow duration-200 relative"
+                className="bg-gray-800 rounded-lg shadow-md p-6 border cursor-pointer hover:shadow-lg transition-shadow duration-200 relative"
                 onClick={handleCardClick}
             >
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
-                <p className="text-gray-600 mb-4">{project.description}</p>
+                <h3 className="text-xl font-semibold text-emerald-500 mb-2">{project.title}</h3>
+                <p className="text-emerald-600 mb-4">{project.description}</p>
                 
                 {isOwner && (
                     <div className="absolute top-4 right-4 z-10">
                         <button 
                             onClick={handleDeleteClick} 
-                            className="text-red-500 hover:text-red-700 transition-colors duration-200 p-2 rounded-full hover:bg-gray-100"
+                            className="text-emerald-500 hover:text-emerald-600 transition-colors duration-200 p-2 rounded-full"
                             aria-label="Eliminar proyecto"
                         >
                             <IconContainer 
@@ -78,9 +78,9 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
                 )}
 
                 <div className="text-sm text-gray-500">
-                    <p><strong>Miembros:</strong> {project.members.length}</p>
-                    <p><strong>Creador:</strong> {project.owner.username}</p>
-                    <p><strong>Fecha:</strong> {new Date(project.createdAt).toLocaleDateString()}</p>
+                    <p className="text-emerald-600"><strong className="text-emerald-600">Miembros:</strong> {project.members.length}</p>
+                    <p className="text-emerald-600"><strong className="text-emerald-600">Creador:</strong> {project.owner.username}</p>
+                    <p className="text-emerald-600"><strong className="text-emerald-600">Fecha:</strong> {new Date(project.createdAt).toLocaleDateString()}</p>
                 </div>
             </div>
 

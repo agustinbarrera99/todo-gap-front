@@ -36,7 +36,7 @@ const TaskColumn = ({ title, tasks, onTaskActionCompleted, onDropTask }) => {
 
     return (
         <div
-            className={`flex-shrink-0 w-80 bg-white rounded-lg shadow-md p-4 border-t-4 ${borderColor}`}
+            className={`flex-shrink-0 w-80 bg-gray-800 rounded-lg shadow-md p-4 border-t-4 ${borderColor}`}
             onDragOver={handleDragOver} 
             onDrop={handleDrop} 
         >
@@ -54,7 +54,7 @@ const TaskColumn = ({ title, tasks, onTaskActionCompleted, onDropTask }) => {
                         />
                     ))
                 ) : (
-                    <div className="text-center p-6 text-gray-400 bg-gray-50 rounded-md">
+                    <div className="text-center p-6 text-emerald-400 bg-gray-800 rounded-md">
                         No hay tareas en este estado.
                     </div>
                 )}
