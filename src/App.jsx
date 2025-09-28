@@ -9,6 +9,9 @@ import CreateProject from "./pages/createProyect.jsx";
 import ProyectList from "./components/proyect/ProyectList.jsx";
 import ProjectDetailPage from "./components/proyect/ProyectDetailPage.jsx";
 import Footer from "./components/ui/Footer.jsx";
+import Verification from "./pages/Verification.jsx";
+import ForgotPassword from "./pages/forgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 function App() {
   return (
@@ -20,10 +23,13 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/verify" element={<Verification />} />
               <Route path="/register" element={<Register />} />
               <Route path="/create-project" element={<CreateProject />} />
               <Route path="/my-projects" element={<ProyectList />} />
               <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
+              <Route path="forgot-password" element= {<ForgotPassword />} />
+              <Route path="/reset-password/:token" element={<ResetPassword />} />
             </Routes>
           </main>
           <Footer />

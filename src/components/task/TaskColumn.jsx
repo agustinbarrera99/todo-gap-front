@@ -36,7 +36,7 @@ const TaskColumn = ({ title, tasks, onTaskActionCompleted, onDropTask }) => {
 
     return (
         <div
-            className={`flex-shrink-0 w-80 bg-gray-800 rounded-lg shadow-md p-4 border-t-4 ${borderColor}`}
+            className={`flex-shrink-0 w-80 bg-gray-900 rounded-lg shadow-md p-4 border-t-4 ${borderColor}`}
             onDragOver={handleDragOver} 
             onDrop={handleDrop} 
         >

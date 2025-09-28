@@ -134,7 +134,7 @@ const TaskBoard = ({ projectId }) => {
                 />
             </div>
             
-            <div className="flex space-x-4 overflow-x-auto pb-4 bg-gray-800">
+            <div className="flex space-x-4 overflow-x-auto pb-4 bg-gray-900">
                 {TASK_STATUSES.map((status) => (
                     <TaskColumn
                         key={status}
