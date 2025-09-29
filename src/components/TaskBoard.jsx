@@ -11,7 +11,7 @@ import { FaPlus } from "react-icons/fa";
 const API_BASE_URL = "http://localhost:8080/api";
 const TASK_STATUSES = ["PENDIENTE", "EN PROGRESO", "A VERIFICAR", "COMPLETADA"];
 
-const TaskBoard = ({ projectId }) => {
+const TaskBoard = ({ projectId, projectMembers }) => {
     const { authToken } = useAuth();
 
     const [tasks, setTasks] = useState([]);
@@ -118,10 +118,12 @@ const TaskBoard = ({ projectId }) => {
     }
 
     return (
-        <div className="p-4 bg-gray-100 rounded-lg shadow-inner">
+        <div className="p-4 bg-gray-900 rounded-lg shadow-inner">
             <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-bold text-gray-700">Tablero de Tareas</h3>
+                <h3 className="text-xl font-bold text-emerald-400">Tablero de Tareas</h3>
                 <Button
+                    bgColor={"bg-emerald-500"}
+                    bgColorHover={"hover:bg-emerald-600"}
                     text={
                         <span className="flex items-center space-x-2">
                             <FaPlus className="w-4 h-4" />
@@ -132,7 +134,7 @@ const TaskBoard = ({ projectId }) => {
                 />
             </div>
             
-            <div className="flex space-x-4 overflow-x-auto pb-4">
+            <div className="flex space-x-4 overflow-x-auto pb-4 bg-gray-900">
                 {TASK_STATUSES.map((status) => (
                     <TaskColumn
                         key={status}
@@ -140,6 +142,7 @@ const TaskBoard = ({ projectId }) => {
                         tasks={groupedTasks[status] || []}
                         onTaskActionCompleted={fetchTasks}
                         onDropTask={updateTaskStatus} 
+                        projectMembers={projectMembers}
                     />
                 ))}
             </div>
@@ -150,6 +153,7 @@ const TaskBoard = ({ projectId }) => {
                 isOpen={isCreateModalOpen}
                 onClose={() => setIsCreateModalOpen(false)}
                 onSuccess={handleTaskCreationSuccess}
+                projectMembers={projectMembers || []}
             />
         </div>
     );
