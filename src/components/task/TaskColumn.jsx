@@ -2,7 +2,7 @@ import React from "react";
 import TaskItem from "./TaskItem.jsx";
 
 // El componente TaskColumn ahora recibe onDropTask
-const TaskColumn = ({ title, tasks, onTaskActionCompleted, onDropTask }) => { 
+const TaskColumn = ({ title, tasks, onTaskActionCompleted, onDropTask, projectMembers }) => { 
     // Lógica de colores (puede ir antes o dentro del componente, está bien aquí)
     let borderColor = "border-gray-300";
     let titleColor = "text-gray-700";
@@ -50,7 +50,8 @@ const TaskColumn = ({ title, tasks, onTaskActionCompleted, onDropTask }) => {
                             key={task._id || task.id}
                             task={task}
                             onTaskDeleted={onTaskActionCompleted} 
-                            onTaskUpdated={onTaskActionCompleted} 
+                            onTaskUpdated={onTaskActionCompleted}
+                            projectMembers={projectMembers}
                         />
                     ))
                 ) : (

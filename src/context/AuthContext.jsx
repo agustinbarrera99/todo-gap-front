@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 const AuthContext = createContext();
-
 const AUTH_TOKEN_KEY = "authToken";
-
 const getUserIdFromToken = (token) => {
   if (!token) return null;
   try {
@@ -14,12 +12,10 @@ const getUserIdFromToken = (token) => {
     return null;
   }
 };
-
 export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(() => {
     return localStorage.getItem(AUTH_TOKEN_KEY) || null;
   });
-
   const [userId, setUserId] = useState(() => {
     const token = localStorage.getItem(AUTH_TOKEN_KEY);
     return getUserIdFromToken(token);
@@ -36,15 +32,10 @@ export const AuthProvider = ({ children }) => {
   const login = (token) => {
     setAuthToken(token);
   };
-
   const logout = () => {
-
     setAuthToken(null);
-
   };
-
   const isAuthenticated = !!authToken;
-
   const value = {
     authToken,
     userId,

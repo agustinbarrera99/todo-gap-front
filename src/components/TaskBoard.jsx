@@ -11,7 +11,7 @@ import { FaPlus } from "react-icons/fa";
 const API_BASE_URL = "http://localhost:8080/api";
 const TASK_STATUSES = ["PENDIENTE", "EN PROGRESO", "A VERIFICAR", "COMPLETADA"];
 
-const TaskBoard = ({ projectId }) => {
+const TaskBoard = ({ projectId, projectMembers }) => {
     const { authToken } = useAuth();
 
     const [tasks, setTasks] = useState([]);
@@ -142,6 +142,7 @@ const TaskBoard = ({ projectId }) => {
                         tasks={groupedTasks[status] || []}
                         onTaskActionCompleted={fetchTasks}
                         onDropTask={updateTaskStatus} 
+                        projectMembers={projectMembers}
                     />
                 ))}
             </div>
@@ -152,6 +153,7 @@ const TaskBoard = ({ projectId }) => {
                 isOpen={isCreateModalOpen}
                 onClose={() => setIsCreateModalOpen(false)}
                 onSuccess={handleTaskCreationSuccess}
+                projectMembers={projectMembers || []}
             />
         </div>
     );

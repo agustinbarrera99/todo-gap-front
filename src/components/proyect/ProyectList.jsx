@@ -9,6 +9,9 @@ const ProyectList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const { authToken } = useAuth(); 
+
+    
+    // Función para obtener la lista de proyectos
     const fetchProjects = async () => {
         if (!authToken) {
             setIsLoading(false);
@@ -23,6 +26,7 @@ const ProyectList = () => {
                 }
             };
             const response = await axios.get('http://localhost:8080/api/projects', config);
+            console.log(response.data)
             setProjects(response.data.response || []);
             setIsLoading(false);
         } catch (err) {

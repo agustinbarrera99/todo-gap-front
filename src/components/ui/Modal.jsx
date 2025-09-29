@@ -11,7 +11,7 @@ const Modal = ({ isOpen, onClose, children, title, footer, className = "" }) => 
             onClick={onClose}
         >
             <div 
-                className={`bg-white p-8 rounded-lg w-11/12 max-w-sm transform transition-all duration-300 ease-in-out scale-95 ${className}`}
+                className={`bg-gray-800 p-8 rounded-lg w-11/12 max-w-sm transform transition-all duration-300 ease-in-out scale-95 ${className}`}
                 onClick={handleModalClick} 
             >
                 <button
@@ -36,7 +36,7 @@ const Modal = ({ isOpen, onClose, children, title, footer, className = "" }) => 
                 </button>
                 
                 {title && (
-                    <h3 className="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">{title}</h3>
+                    <h3 className="text-2xl font-bold mb-4 text-emerald-700 border-b pb-2">{title}</h3>
                 )}
 
                 <div className="mb-6">

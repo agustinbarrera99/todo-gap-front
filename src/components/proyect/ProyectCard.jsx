@@ -14,10 +14,9 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
     const [isResultModalOpen, setIsResultModalOpen] = useState(false);
     const [resultMessage, setResultMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
-
-    const isOwner = userId;
-    console.log(userId)
-    console.log(project.members)
+    
+    // ⬅️ CORRECCIÓN: Compara el ID de usuario con el ID del propietario del proyecto.
+    const isOwner = userId === (project.owner?._id || project.owner); 
 
     const handleCardClick = () => {
         navigate(`/projects/${project._id}`);
@@ -38,18 +37,22 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
             
             const url = `http://localhost:8080/api/projects/${project._id}`;
             await axios.delete(url, config);
-            setIsSuccess(true);
-            setResultMessage("✅ Proyecto eliminado exitosamente.");
+            
+            // ⬅️ CORRECCIÓN: Solo si la solicitud es exitosa, se elimina el proyecto de la UI.
             if (onProjectDeleted) {
                 onProjectDeleted(project._id);
             }
+            
+            // En caso de éxito, no abrimos el modal de resultado ya que el componente desaparecerá.
+            // Si la llamada es exitosa, el componente se elimina de la lista y no sigue renderizándose.
+            
         } catch (error) {
             setIsSuccess(false);
-            const userMessage = "❌ Error: No se pudo eliminar el proyecto. Revisa tus permisos.";
+            // Intenta obtener un mensaje de error detallado desde el backend
+            const userMessage = error.response?.data?.message || "❌ Error: No se pudo eliminar el proyecto. Revisa tus permisos.";
             console.error("Error al eliminar el proyecto:", error.response ? error.response.data : error.message);
             setResultMessage(userMessage);
-        } finally {
-            setIsResultModalOpen(true);
+            setIsResultModalOpen(true); // Abrir modal solo si falla.
         }
     };
 
@@ -79,7 +82,11 @@ const ProyectCard = ({ project, onProjectDeleted }) => {
 
                 <div className="text-sm text-gray-500">
                     <p className="text-emerald-600"><strong className="text-emerald-600">Miembros:</strong> {project.members.length}</p>
-                    <p className="text-emerald-600"><strong className="text-emerald-600">Creador:</strong> {project.owner.username}</p>
+                    <p className="text-emerald-600">
+                        <strong className="text-emerald-600">Creador:</strong> 
+                        {/* ⬅️ CORRECCIÓN: Acceso seguro al username con optional chaining */}
+                        {project.owner?.username || 'Cargando...'}
+                    </p>
                     <p className="text-emerald-600"><strong className="text-emerald-600">Fecha:</strong> {new Date(project.createdAt).toLocaleDateString()}</p>
                 </div>
             </div>

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useAuth } from '../../context/AuthContext.jsx';
-import useDebounce from '../../hooks/useDebounce.jsx';
+import React, { useState, useEffect, useMemo } from "react";
+import axios from "axios";
+import { useAuth } from "../../context/AuthContext.jsx";
+import useDebounce from "../../hooks/useDebounce.jsx";
 
 const API_USERS_URL = "http://localhost:8080/api/users";
 
-// Recibe onMembersChange para comunicar los IDs al componente padre
 const MemberSelector = ({ onMembersChange }) => { 
     const { authToken } = useAuth();
     const [searchTerm, setSearchTerm] = useState(''); 

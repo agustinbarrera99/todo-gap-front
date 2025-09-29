@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useCallback } from "react";
 import Form from "../components/ui/Form.jsx";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext.jsx";
@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../components/ui/Modal.jsx";
 import Button from "../components/ui/Buton.jsx";
 import MemberSelector from "../components/ui/MemberSelector.jsx";
-import useDebounce from "../hooks/useDebounce.jsx";
 
 const CreateProject = () => {
   const [title, setTitle] = useState("");
@@ -85,16 +84,16 @@ const CreateProject = () => {
   };
 
     return (
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 min-h-screen bg-gray-900">
-            <div className="w-full bg-gray-900 rounded-lg shadow border-emerald-500 border-1 md:mt-0 sm:max-w-md xl:p-0">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 min-h-screen bg-gray-50">
+            <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h2 className="text-xl font-bold leading-tight tracking-tight text-emerald-500 md:text-2xl">
+                    <h2 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                         Crear Nuevo Proyecto
                     </h2>
                     <Form onSubmit={handleSubmit}>
                         {/* Input Título */}
                         <div>
-                            <label htmlFor="title" className="block mb-2 text-sm font-medium text-emerald-500">
+                            <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900">
                                 Título del Proyecto
                             </label>
                             <input
@@ -110,7 +109,7 @@ const CreateProject = () => {
 
                         {/* Input Descripción */}
                         <div>
-                            <label htmlFor="description" className="block mb-2 text-sm font-medium text-emerald-500">
+                            <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
                                 Descripción
                             </label>
                             <textarea
@@ -118,7 +117,7 @@ const CreateProject = () => {
                                 placeholder="Descripción detallada del proyecto"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                                className="bg-gray-50 border border-gray-300 text-emerald-500sm:text-sm rounded-lg block w-full p-2.5 focus:ring-blue-600 focus:border-blue-600 h-32 resize-none"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:ring-blue-600 focus:border-blue-600 h-32 resize-none"
                                 required
                             />
                         </div>
@@ -128,8 +127,8 @@ const CreateProject = () => {
                             onMembersChange={handleMembersChange}
                         />
 
-                        <Button type="submit" text="Crear Proyecto" bgColor={"bg-emerald-500"} bgColorHover={"hover:bg-emerald-600"}/>
-                        <p className="text-sm font-light text-emerald-500">
+                        <Button type="submit" text="Crear Proyecto" />
+                        <p className="text-sm font-light text-gray-500">
                             Asegúrate de haber iniciado sesión antes de crear.
                         </p>
                     </Form>
